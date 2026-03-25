@@ -11,6 +11,9 @@ mysql> show databases;
 | xyz                |
 +--------------------+
 
+mysql> CREATE DATABASE studentdb;
+Query OK, 1 row affected (0.01 sec)
+    
 mysql> use studentdb;
 Database changed
 
