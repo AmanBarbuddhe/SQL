@@ -50,7 +50,7 @@ mysql> SELECT * FROM students;
 +------+------+-------+
 4 rows in set (0.00 sec)
 
-****** IF WE WANT TO ADD SPECIFIC COLUMNS RECORD ******
+--****** IF WE WANT TO ADD SPECIFIC COLUMNS RECORD ******
 
 mysql> INSERT INTO students (rno , per) VALUES (101  , 89.43);
 Query OK, 1 row affected (0.00 sec)
@@ -83,7 +83,7 @@ mysql> SELECT * FROM students;
 +------+------+-------+
 6 rows in set (0.00 sec)
 
-****** IF WE WANT TO SEE SPECIFIC COLUMNS RECORD ******
+--****** IF WE WANT TO SEE SPECIFIC COLUMNS RECORD ******
 
 
 mysql> SELECT rno , name  FROM students;
