@@ -194,6 +194,171 @@ ajdb20=# SELECT * FROM student WHERE city != 'PUNE' AND city != 'MUMBAI';
 
 
 
+--> ==================================
+--> Pattern Matching using LIKE clause
+--> ==================================
+
+--> when we want to match pattern LIKE clause is used
+
+% --> Any no. of characters
+_ --> Any single character
+
+
+P% --> Your city name is starting from pune
+P%E --> City starting with 'P' and End with 'E'
+_A%E --> 1st character can be anything but only single character can be there , 2nd character should be 'A' , in middle any no. of any character , end should be with 'E'
+--> ex : BANGLORE
+
+ajdb20=# select * from student where city LIKE 'P%';
+
+ rno | name | per | city
+-----+------+-----+-------
+   1 | AAA  |  70 | PUNE
+   2 | BBB  |  29 | PANJI
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+(4 rows)
+
+
+ajdb20=# select * from student where city LIKE '_A%E';
+
+ rno | name | per |   city
+-----+------+-----+----------
+   5 | EEE  |  87 | BANGLORE
+(1 row)
+
+ajdb20=# select * from student where city LIKE '____'; --> any city made from 4 characters
+
+ rno | name | per | city
+-----+------+-----+------
+   1 | AAA  |  70 | PUNE
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+(3 rows)
+
+ajdb20=# select * from student where city LIKE '_____';  --> any city made from 4 characters
+ rno | name | per | city
+-----+------+-----+-------
+   2 | BBB  |  29 | PANJI
+   4 | DDD  |  64 | DELHI
+   8 | BBB  |  73 | DELHI
+(3 rows)
+
+ajdb20=# select * from student where city LIKE '_A___';
+
+ rno | name | per | city
+-----+------+-----+-------
+   2 | BBB  |  29 | PANJI
+(1 row)
+
+ajdb20=# select * from student where city NOT LIKE '_A___';
+
+ rno | name | per |   city
+-----+------+-----+----------
+   1 | AAA  |  70 | PUNE
+   3 | CCC  |  50 | MUMBAI
+   4 | DDD  |  64 | DELHI
+   5 | EEE  |  87 | BANGLORE
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+   8 | BBB  |  73 | DELHI
+(7 rows)
+
+
+--> **************** Pattern Matching using LIKE clause in Table creation(CHECK constraint)****************
+
+CREATE TABLE Student(
+
+   ph text CHECK ((ph LIKE '7%' OR ph LIKE '8%' OR ph LIKE '9%') AND (length(ph)=10))
+                     (start with 7 or 8 or 9)
+)
+                                                      OR
+CREATE TABLE Student(
+
+   ph text CHECK ((ph LIKE '7_________' OR ph LIKE '8_________' OR ph LIKE '9_________'))
+                     (start with 7 or 8 or 9)
+)
+
+--->  !=    and    <>    are both same 
+
+--> How to display records where percentage is null? --> using IS keyword
+                      
+ajdb20=# select * from student;
+
+ rno | name | per |   city
+-----+------+-----+----------
+   1 | AAA  |  70 | PUNE
+   2 | BBB  |  29 | PANJI
+   3 | CCC  |  50 | MUMBAI
+   4 | DDD  |  64 | DELHI
+   5 | EEE  |  87 | BANGLORE
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+   8 | BBB  |  73 | DELHI
+   9 | HHH  |     | PUNE
+(9 rows)
+
+ajdb20=# select * from student WHERE per IS NULL;
+
+ rno | name | per | city
+-----+------+-----+------
+   9 | HHH  |     | PUNE
+(1 row)
+
+ajdb20=# select * from student WHERE per IS NOT NULL;
+
+ rno | name | per |   city
+-----+------+-----+----------
+   1 | AAA  |  70 | PUNE
+   2 | BBB  |  29 | PANJI
+   3 | CCC  |  50 | MUMBAI
+   4 | DDD  |  64 | DELHI
+   5 | EEE  |  87 | BANGLORE
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+   8 | BBB  |  73 | DELHI
+(8 rows)
+
+--> **************** To ignore case(uppercase/lowercase) use "ILIKE" ****************
+
+ajdb20=# select * from student WHERE city ILIKE 'p%';
+ rno | name | per | city
+-----+------+-----+-------
+   1 | AAA  |  70 | PUNE
+   2 | BBB  |  29 | PANJI
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+   9 | HHH  |     | PUNE
+(5 rows)
+
+
+ajdb20=# select * from student WHERE city ILIKE 'P%';
+ rno | name | per | city
+-----+------+-----+-------
+   1 | AAA  |  70 | PUNE
+   2 | BBB  |  29 | PANJI
+   6 | FFF  |  95 | PUNE
+   7 | GGG  |  45 | PUNE
+   9 | HHH  |     | PUNE
+(5 rows)
+
+--> LIKE : 1)It is case sensitive pattern matching clause , i.e 'P%' your string must start with 'P' , 'p' is not allowed 
+
+--> ILIKE : 1)It is case in-sensitive pattern matching clause , and it works in psql not it MySql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
